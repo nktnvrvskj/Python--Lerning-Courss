@@ -1,4 +1,5 @@
-﻿task = []
+﻿import proceses
+task = []
 is_start = True
 # 
 def clear():
@@ -20,6 +21,7 @@ while(is_start):
     if a == "1":
         task_print()
         input("нажмите Enter чтобы продолжить")
+        proceses.main()
     elif a == "2":
         print("ведите задачу")
         task.append(input(">>> "))
