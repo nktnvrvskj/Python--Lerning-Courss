@@ -3,6 +3,7 @@ __pycache__/
 *.py[codz]
 *$py.class
 task.json
+pc.json
 # C extensions
 *.so
 
