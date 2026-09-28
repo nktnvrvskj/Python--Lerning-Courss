@@ -1,0 +1,1 @@
+﻿NAME_FILES_SAVES = "task.json"
