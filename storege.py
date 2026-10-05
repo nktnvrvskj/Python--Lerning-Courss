@@ -5,7 +5,7 @@ def load(task,name_file):
 
     if not os.path.exists(name_file):
         save(task,name_file)
-        return
+        return task
     with open(name_file, "r", encoding="utf-8") as f:
         task = json.load(f)
         return task
