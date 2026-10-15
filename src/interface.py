@@ -1,25 +1,53 @@
-﻿import tkinter as tk
-score = 0
+﻿from tkinter import *
+import tkinter as tk
+from PIL import Image, ImageTk
+from pathlib import Path
 
-def start(id:int):
-    print(id)
-    global score
-    score +=1
-    label.config(text=score)
+collection = ["task_1 create menu", "task_2 add main"]
+
 root = tk.Tk()
-root.geometry("500x500")
+root.geometry("400x400")
 
-Button = tk.Button(root,text="start", command=lambda: start(12))
-Button.pack()
-heder = tk.Frame(root, bg="light blue",height=400, width=400)
-heder.pack(side="top",fill="x")
-footer = tk.Frame(root, bg="light blue",height=400, width=400)
-footer.pack(side="bottom",fill="x")
-main = tk.Frame(root, bg="light blue",height=400, width=400)
-main.pack(side="bottom",fill="x")
+icon_path = Path(__file__).parent.parent / "assets" / "icon.ico"
+img = Image.open(icon_path)
+icon = ImageTk.PhotoImage(img)
+root.iconphoto(True, icon)
+frame_memu =None
+frame_tasks =None
+tasks = None
+def init():
+    global frame_tasks,frame_memu,tasks
+    frame_memu = tk.Frame(root, background="#000000", width=400, height=400)
+    button_show_task =tk.Button(frame_memu, text="посмотреть задачи",command=show_all_tasks)
+    button_show_task.pack()
+    frame_tasks = tk.Frame(root, background="#000000", width=400, height=400)
+    button_exit = tk.Button(frame_tasks, text="Exit", command=create_menu)
+    button_exit.pack()
+    button_exit1 = tk.Button(frame_tasks, text="Exit", command=show)
+    button_exit1.pack()
+    frame_memu.pack_propagate(False)
+    frame_tasks.pack_propagate(False)
+    tasks = tk.Listbox(frame_tasks, width=400, height=400)
+    tasks.pack()
+
+def show():
+    print(tasks.curselection())
+def show_all_tasks():
+    frame_memu.pack_forget()
+    frame_tasks.pack()
+    tasks.delete(0, tk.END)
+    for tack in collection:
+        tasks.insert(tk.END, tack)
 
 
-label= tk.Label(heder,text=0,height=20,width=50)
-label.pack()
 
+def create_menu():
+    frame_memu.pack()
+    frame_tasks.pack_forget()
+
+
+
+
+init()
+create_menu()
 root.mainloop()
