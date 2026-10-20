@@ -2,7 +2,7 @@
 import platform
 import time
 import psutil
-name_file = "pc.json"
+name_file = "../pc.json"
 
 
 def search_data():

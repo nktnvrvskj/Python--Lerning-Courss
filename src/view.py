@@ -1,29 +1,23 @@
 ﻿from tkinter import *
 import tkinter as tk
-from PIL import Image, ImageTk
-from pathlib import Path
+
 
 collection = ["task_1 create menu", "task_2 add main"]
 
-root = tk.Tk()
-root.geometry("400x400")
 
-icon_path = Path(__file__).parent.parent / "assets" / "icon.ico"
-img = Image.open(icon_path)
-icon = ImageTk.PhotoImage(img)
-root.iconphoto(True, icon)
+
+
 frame_memu =None
 frame_tasks =None
 tasks = None
 def init():
     global frame_tasks,frame_memu,tasks
     frame_memu = tk.Frame(root, background="#000000", width=400, height=400)
-    button_show_task =tk.Button(frame_memu, text="посмотреть задачи",command=show_all_tasks)
-    button_show_task.pack()
+
     frame_tasks = tk.Frame(root, background="#000000", width=400, height=400)
     button_exit = tk.Button(frame_tasks, text="Exit", command=create_menu)
     button_exit.pack()
-    button_exit1 = tk.Button(frame_tasks, text="Exit", command=show)
+    button_exit1 = tk.Button(frame_tasks, text="show", command=show)
     button_exit1.pack()
     frame_memu.pack_propagate(False)
     frame_tasks.pack_propagate(False)
