@@ -5,6 +5,7 @@ from pathlib import Path
 
 from logger import name_file
 from ui.Frame import AppFrame
+from ui.Button import AppButton
 
 class Interface:
     def __init__(self,windows_w=400,windows_h=400):
@@ -20,7 +21,7 @@ class Interface:
         icon = ImageTk.PhotoImage(img)
 
         self.frame = {}
-        self.buttons = []
+        self.buttons = {}
 
         self.root.iconphoto(True, icon)
 
@@ -30,7 +31,9 @@ class Interface:
 
     def create_interface(self):
         self.create_frames(["menu", "task"])
-        self.create_buttons()
+        self.create_buttons(["menu", "task"],
+                                ["Посмотреть задачи", "Добавить задачу"],
+                            [lambda : self.frame["menu"].hide(True),lambda :self.frame["task"].hide(False)])
 
     def create_frames(self, mane_frame):
         for i,r in enumerate(mane_frame):
@@ -40,6 +43,14 @@ class Interface:
             self.frame[r] = frame
         print(self.frame)
 
-    def create_buttons(self):
-        button_show_task = tk.Button(self.frame["menu"], text="посмотреть задачи",command=lambda :self.frame["menu"].hide(True))
-        button_show_task.pack()
+    def create_buttons(self, mane_frame, text, comands):
+        for frame_name, button_text, command in zip(
+                mane_frame, text, comands
+        ):
+            button = AppButton(
+                self.frame[frame_name],
+                button_text,
+                command
+            )
+            self.buttons[frame_name] = button
+        print(self.buttons)
