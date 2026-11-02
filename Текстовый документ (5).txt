@@ -1,0 +1,39 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_teacher_insert1s`()
+BEGIN
+    DECLARE i INT DEFAULT 1;
+    DECLARE j INT DEFAULT 0;
+	DECLARE count INT DEFAULT 100;
+	SELECT COUNT(id)
+	INTO j
+    FROM teachers;
+    WHILE i <= count DO
+        INSERT INTO teachers (full_name, email, phone, created_at)
+        VALUES (
+            CONCAT('Teacher', j + i),
+            CONCAT('teach_', j + i, '@gmail.com'),
+            CONCAT('+7978', LPAD(j + i, 5, '0')),
+            CURDATE()
+        );
+        SET i = i + 1;
+    END WHILE;
+END
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_subjects_insert`()
+BEGIN
+    DECLARE i INT DEFAULT 1;
+	DECLARE count INT DEFAULT 100;
+	DECLARE t_id INT DEFAULT 1;
+    WHILE i <= count DO
+		SELECT id
+        INTO t_id FROM teachers ORDER BY RAND() LIMIT 1;
+        INSERT INTO subjects (sub_name, hours, teacher_id)
+        VALUES (
+            elt(floor(Rand()* 5) +1 , 'Информатика','Биология','Физика','Химия','Базы данныч'),
+            floor(Rand()* 100),
+            t_id
+        );
+        SET i = i + 1;
+    END WHILE;
+END
+
+
+

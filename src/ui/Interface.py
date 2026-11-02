@@ -1,39 +1,25 @@
 ﻿import tkinter as tk
 
-from PIL import Image, ImageTk
-from pathlib import Path
-
 from logger import name_file
 from ui.Frame import AppFrame
 from ui.Button import AppButton
+from ui.Listbox import AppListbox
 
 class Interface:
-    def __init__(self,windows_w=400,windows_h=400):
-        self.root = tk.Tk()
+    def __init__(self,root,frame,buttons):
 
-        self.root_w = windows_w
-        self.root_h = windows_h
+        self.root =root
+        self.frame = frame
+        self.buttons = buttons
 
-        self.root.geometry(f"{self.root_h}x{self.root_w}")
-
-        icon_path = Path(__file__).parent.parent/".."/ "assets" / "icon.ico"
-        img = Image.open(icon_path)
-        icon = ImageTk.PhotoImage(img)
-
-        self.frame = {}
-        self.buttons = {}
-
-        self.root.iconphoto(True, icon)
-
-        self.create_interface()
-
-        self.root.mainloop()
+        self.listbox = tk.Listbox()
 
     def create_interface(self):
         self.create_frames(["menu", "task"])
         self.create_buttons(["menu", "task"],
                                 ["Посмотреть задачи", "Добавить задачу"],
-                            [lambda : self.frame["menu"].hide(True),lambda :self.frame["task"].hide(False)])
+                            [lambda : (self.frame["menu"].hide(True),self.frame["task"].hide(False)),
+                                        lambda :(self.frame["task"].hide(True),self.frame["menu"].hide(False))])
 
     def create_frames(self, mane_frame):
         for i,r in enumerate(mane_frame):
@@ -43,9 +29,9 @@ class Interface:
             self.frame[r] = frame
         print(self.frame)
 
-    def create_buttons(self, mane_frame, text, comands):
+    def create_buttons(self, name_frame, text, comands):
         for frame_name, button_text, command in zip(
-                mane_frame, text, comands
+                name_frame, text, comands
         ):
             button = AppButton(
                 self.frame[frame_name],
@@ -54,3 +40,7 @@ class Interface:
             )
             self.buttons[frame_name] = button
         print(self.buttons)
+
+    def add_listBox(self,name_frame):
+        lb = AppListbox(self.frame[name_frame])
+        self.listbox = lb
