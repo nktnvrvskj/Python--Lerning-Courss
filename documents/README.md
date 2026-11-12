@@ -19,3 +19,14 @@
 -[x] переделано под модульную систему
 ## Версия 0.1.0
 -[x] подготовка документации,сборка проекта
+
+## Версия 0.2.0
+-[x] класс Task: поля, to_dict, from_dict
+-[x] класс StorageManager: load, save, add, update, delete
+-[x] компоненты AppButton, AppEntry, AppLabel, AppListbox, AppFrame, AppText
+-[x] панель подробностей: описание, автор, статус, дата, ID по клику
+-[x] класс Interface: build, get_input, show_tasks, ask_confirm
+-[x] класс TaskManager: create, edit, delete, toggle_status, run
+-[x] main.py: создать TaskManager и вызвать run()
+-[x] проверка сохранения данных между запусками
+-[x] документация и тесты

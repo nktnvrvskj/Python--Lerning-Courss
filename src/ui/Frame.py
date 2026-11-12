@@ -1,22 +1,21 @@
-﻿import tkinter as tk
+"""Контейнер (фрейм) приложения."""
+from __future__ import annotations
+
+import tkinter as tk
+
+from ui import theme
+
 
 class AppFrame(tk.Frame):
-    def __init__(self, master, color, width, height):
-        super().__init__(
-            master,
-            bg=color,
-            width=width,
-            height=height
-        )
+    """Наследник tk.Frame со светлым оформлением."""
 
-        self.master = master
-        self.background = color
-        self.width = width
-        self.height = height
-        self.pack_propagate(False)
+    def __init__(self, master, **kwargs) -> None:
+        options = {
+            "bg": theme.CARD,
+            "borderwidth": 0,
+            "highlightthickness": 0,
+            "relief": "flat",
+        }
+        options.update(kwargs)
 
-    def hide(self,event: bool):
-        if event:
-            self.pack_forget()
-        else:
-            self.pack()
+        super().__init__(master, **options)
